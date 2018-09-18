@@ -16,19 +16,20 @@
     <tbody>
       <% @pins.each do |pin| %>
         <tr>
-          <td><%= image_tag pin.image.url(:thumb) %></td>
-          <td><%= pin.description %></td>
-          <td><%= link_to 'Show', pin %></td>
-          <td><%= link_to 'Edit', edit_pin_path(pin) %></td>
-          <td><%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%= pin.user.name if pin.user %><br/>
+          <%= link_to image_tag(pin.image.url(:medium)), pin %><br/>
+          <%= pin.description %><br/>
+            <br/>
+          <% if pin.user == current_user %>
+            <%= link_to 'Edit', edit_pin_path(pin) %> ||
+            <%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %><br/>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
   </div>
   
-
- 
 <div class="panel-footer">
   <%= link_to 'New Pin', new_pin_path %>
 </div>
